@@ -1,12 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html >
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700' rel='stylesheet' type='text/css'>
-  <title>Daily Luck</title>
-  <meta name="keywords" content="算命">
-  <meta name="description" content="算命的">
+  <meta charset="UTF-8">
+  <title>All_fate_verson1</title>
+  
+  
+  
+      <link rel="stylesheet" href="css/style.css">
+
+  
 </head>
+
 <body>
+  
+<html>
+<body>
+
+<div style="background-color:black;color:white;padding:20px;">
+<p>請輸入西元年分:</p>
+
+<input id="yid" type="number" min="0" max="3000" required>
+<p>請輸入月分:</p>
+
+<input id="mid" type="number" min="1" max="12" required>
+<p>請輸入日期:</p>
+
+<input id="did" type="number" min="1" max="31" required>
+
+<p>性別:</p>
+<select id= "sexid">
+  <option value="0">男</option>
+  <option value="1">女</option>
+</select>
+<!-- <input id="sexid" type="text"> -->
+<br>
+<button onclick="myFunction()">OK</button>
+</div> 
+
+<div style="background-color:yellow;color:black;padding:20px;">
+<h2>主要屬性:</h2>
+<p id="demo"></p>
+<p id="tgdemo"></p>
+<h2>內心性格:</h2>
+<p id="demo2"></p>
+<p id="dzdemo"></p>
+<h2>意志力強弱</h2>
+<p id="wos"></p>
+  
+<h2>幸運色:</h2>
+<p id="color"></p>
+</div> 
+
+  
+<div style="background-color:blue;color:black;padding:20px;" >
+  <h2>人生狀態:</h2>
+  <p>幼年</p>
+  <p id="word1"></p>
+  <p>青年</p>
+  <p id="word2"></p>
+  <p>家庭</p>
+  <p id="word3"></p>
+
+
+  </div>
+<div style="background-color:green;color:black;padding:20px;" >
+<h2>今日運勢</h2>
+<p id="tengoddemo"></p>
+<p id="fudemo"></p>
+<p>建議穿搭色</p>
+  <p id="clothcolor"></p>
+</div>
+
+<div style="background-color:red;color:black;padding:20px;">
+  <p>請輸入西元年分:</p>
+
+<input id="oyid" type="number" min="0" max="3000" required>
+<p>請輸入月分:</p>
+
+<input id="omid" type="number" min="1" max="12" required>
+<p>請輸入日期:</p>
+
+<input id="odid" type="number" min="1" max="31" required>
+
+<p>性別:</p>
+<select id= "osexid">
+  <option value="0">男</option>
+  <option value="1">女</option>
+</select>
+<br>
+<button onclick="testFunction()">OK</button>
+</div> 
+<div style="background-color:red;color:black;padding:20px;">
+  <h2>關係中水平傾向</h2>
+  <p id="eachother0"></p>
+  <h2>內心互動</h2>
+  <p id="eachother1"></p>
+  <h2>若是情侶，會可能發生</h2>
+  <p id="eachother2"></p>
+</div>
+</body>
+</html>
+  
+    <script src="js/index.js"></script>
+
 </body>
 </html>
