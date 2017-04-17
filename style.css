@@ -1,6 +1,20 @@
-$blue: #a3d5d3;
-
-
-body {
-  background-color: $blue;
-}
+#css_table {
+/*       display:table; */
+      margin: 20px;
+      padding: 20px;
+      width:520px;
+      height:520px;
+  }
+.css_tr {
+      display: table-row;
+      Backgroundcolor:blue;
+      height:100px;
+      aline="center"
+      valign="center"
+  }
+.css_td {
+      display: table-cell;
+      width:100px;
+      aline="center"
+      valign="center"
+  }
