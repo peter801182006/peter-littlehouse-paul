@@ -1,9 +1,19 @@
-#css_table {
+.a{
+  background-color:#000000;
+}
+.commend p{
+  display:inline;
+  background-color:#000000;
+  height:50px;
+  color:white;
+}
+.css_table {
 /*       display:table; */
       margin: 20px;
       padding: 20px;
       width:520px;
       height:520px;
+      
   }
 .css_tr {
       display: table-row;
@@ -11,10 +21,44 @@
       height:100px;
       aline="center"
       valign="center"
+      margin:0 auto;
   }
 .css_td {
       display: table-cell;
       width:100px;
+      padding: 20px;
       aline="center"
       valign="center"
+      text-align: center;
+      vertical-align: middle;
+      line-height: 90px;
+      background-color:	#FFB7DD;
   }
+.css_td1 {
+      display: table-cell;
+      width:100px;
+      padding: 20px;
+      aline="center"
+      valign="center"
+      text-align: center;
+      vertical-align: middle;
+      line-height: 90px;
+      background-color:#82FF82;
+  }
+.css_td2 {
+      display: table-cell;
+      width:100px;
+      padding: 20px;
+      aline="center"
+      valign="center"
+      text-align: center;
+      vertical-align: middle;
+      line-height: 90px;
+      background-color:	#FF3333;
+  }
+.text1{
+  color:	#FF3333;
+}
+.text2{
+  color:	#FF3333;
+}

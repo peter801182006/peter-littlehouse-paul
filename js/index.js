@@ -76,7 +76,10 @@ function TgDzDate(year,month,day,jday,jdve){
 //偏移量參數:
    
 TgDzDate.prototype = Object.create(TheDate.prototype); 
-
+TgDzDate.prototype.getTy= function (){
+  return this.ty;
+}
+  
 TgDzDate.prototype.MeanJQJD= function(yy,jdve,ty, ini, num){
   var jdez=new Array();
   //for 偏心率計算:------------------------------------------------
@@ -262,7 +265,7 @@ TgDzDate.prototype.getGZ=function(spcjd, ya,  tg, dz) {
   } else {
     ty = ya;
   }
-
+  this.ty=ty;
   tg[0]=(((ty%10)+6)<10)?((ty%10)+6):((ty%10)+6)%10;
   dz[0] =(((ty % 12)+8)<12)?((ty % 12)+8):((ty % 12)+8)%12;
 
@@ -297,57 +300,6 @@ TgDzDate.prototype.getGZ=function(spcjd, ya,  tg, dz) {
   tg[2]= dtg;
   dz[2] =ddz;
 }
-function Jiugongge(year,sex){
-  //民國
-  this.year=year-1911;
-  //性別
-  this.sex=sex;
-  this.lifeindex;
-  this.lifetype;
-  this.number=[1349,25678]
-  // this.lifetypearray=["坎卦","坤卦","震卦",(this.sex==0)?"坤卦":"艮卦","乾卦","兌卦","艮卦","離卦"];
-}
-Jiugongge.prototype.getYearNumberSum=function(yy){
-  var m1=Math.floor(yy/10);
-  var m2=yy-m1*10;
-  var result=m1+m2;
-  if(result>9){
-     result=this.getYearNumberSum(result);
-  }
-  return result;
-}
-Jiugongge.prototype.init=function(){
-  var a=this.getYearNumberSum(this.year);
-  this.lifetype=(this.sex==0)? (8-a>0)?8-a:8-a+9 : this.lifetype=(a-2>0)?a-2:a-2+9 ;
-}
-Jiugongge.prototype.getLifeType=function(sex,a){
-  var lifetypearray=[1,2,3,4,(sex==0)?2:7,6,7,8,9];
-  return lifetypearray[a];
-}
-Jiugongge.prototype.getLifeTypeName=function(sex,a){
-  var lifetypearray=["坎卦","坤卦","震卦","巽卦","五黃","乾卦","兌卦","艮卦","離卦"];
-  var lifetypename=[
-    "☵（坎 kǎn ㄎㄢˇ）","☷（坤 kūn ㄎㄨㄣ）","☳（震 zhèn ㄓㄣˋ）","☴（巽 xùn ㄒㄩㄣˋ）",""
-    ,"☰（乾 qián ㄑㄧㄢˊ）","☱（兌 duì ㄉㄨㄟˋ）","☶（艮 gèn ㄍㄣˋ）","☲（離 lí ㄌㄧˊ）"];
-  return lifetypearray[a];
-}
-Jiugongge.prototype.getNineStarName=function(sex,a){
-  
-}
-Jiugongge.prototype.getEastWestLife=function(a){
-  var result=0;
-  switch(a){
-    case 1:case 3:case 4:case 9:
-      result=0;break;
-    case 2:case 6:case 7:case 8:
-      result=1;break;
-   }
-  return result;
-}
-Jiugongge.prototype.LuckNumber=function(i){
-  return (i=0)?this.number[0]:this.number[1];
-}
-
 
 //八字
 function LifeEightWord(tg,dz){
@@ -371,8 +323,8 @@ function LifeEightWord(tg,dz){
     //
     this.lifebankHorseFlower;
     //
-    this.ctg = new Array("甲木", "乙木", "丙火", "丁火", "戊土", "己土", "庚金", "辛金", "壬水", "癸水");
-    this.cdz = new Array("子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥");
+    this.ctg = new Array("參天大樹", "攀樹之蔓", "太陽之火", "暗室之燭", "高山之石", "田園之土", "刀劍利斧", "箱中寶玉", "濤濤江河", "朝露雪霜");
+    this.cdz = new Array("入室之鼠", "犁田之牛", "臥岩之虎", "鑿洞之兔", "飛天之龍", "草叢之蛇", "奔原之馬", "登山之羊", "林中之猴", "晨啼之雞", "顧家之犬", "亥");
     this.cdzam=new Array("老鼠","牛","老虎","兔","龍","蛇","馬","羊","猴","雞","狗","豬");
     //十神陣列
     this.ctengod=new Array("比肩","劫財","食神","傷官","偏財","正財","七殺","正官","偏印","正印");
@@ -382,6 +334,7 @@ function LifeEightWord(tg,dz){
     this.colorbase = ["綠色系", "粉紅、紅色系", "黃色、咖啡色色系", "銀白色系", "藍黑色系"];
 }
 LifeEightWord.prototype.toString=function(){  
+   // return this.ctg[this.tg[0]]+" "+this.ctg[this.tg[1]]+" "+this.ctg[this.tg[2]]+"<br>"+this.cdz[this.dz[0]]+" "+this.cdz[this.dz[1]]+" "+this.cdz[this.dz[2]];
   return this.ctg[this.tg[0]]+" "+this.ctg[this.tg[1]]+" "+this.ctg[this.tg[2]]+"<br>"+this.cdz[this.dz[0]]+" "+this.cdz[this.dz[1]]+" "+this.cdz[this.dz[2]];
 }
 LifeEightWord.prototype.getTg=function(){
@@ -412,7 +365,7 @@ LifeEightWord.prototype.tgCompare=function (dd) {
 }
 LifeEightWord.prototype.tgCompare2=function (cc,dd) {
   var tengodidex=(this.op==0)?(dd-cc>=0)?dd-cc:dd-cc+10 : (dd-cc+1>=0)?dd-cc+1+((dd%2==0)?1:-1) :dd-cc+10+1+((dd%2==0)?1:-1) ;
-  return this.ctengod[tengodidex];
+  return tengodidex;
 }
 //身強身弱~
 LifeEightWord.prototype.weakOrStrong=function (){
@@ -444,7 +397,7 @@ LifeEightWord.prototype.getWeakOrStrongExplanation=function (){
   return weakOrStrong;
 }
 //計算十神;
-LifeEightWord.prototype.init=function(){
+LifeEightWord.prototype.setLifeTenGod=function(){
   //陰陽
   this.getOp();
   //天干部分
@@ -651,7 +604,7 @@ LifeEightWord.prototype.dzThreeFit=function(cc,dd,ee){
 function sameTgAtSomeLocationTgWtithDzTest(tg,dz){
   var result;
   if(Array.isArray(dzWithTg(dz))){
-     if(this.dzWithTg(dz)[0]==tg){
+     if(dzWithTg(dz)[0]==tg){
         result=1;
      }else{
         result=0;
@@ -713,8 +666,8 @@ LifeEightWord.prototype.tgFitDzFit=function (tg1,dz1,tg2,dz2){
 //反吟:天克地衝，表運勢反覆向下的轉捩點，主謀事不利，百事不順。
 LifeEightWord.prototype.tgFitDzImpulze=function (tgarray,dzarray){
    var result=-1;
-   var abtg=this.tgRestraint(tgarray[0],tgarray[1]);
-   var abdz=this.DzImpulze(dzarray[0],[1]);
+   var abtg=tgRestraint(tgarray[0],tgarray[1]);
+   var abdz=DzImpulze(dzarray[0],[1]);
    if(abtg!= "undefined" || abdz!= "nothing" ){
       result=1;
    }
@@ -899,12 +852,16 @@ function DailyLuck(){
   var tdyy = Number(Today.getFullYear());
   var tdmm = Number(Today.getMonth()) + 1;
   var tddd = Number(Today.getDate());
+  var sex=document.getElementById("sexid").value;
   var tdjd=new TheDate(tdyy,tdmm,tddd).getJdays();
   var tdjdve=new TheDate(tdyy,tdmm,tddd).getVE(tdyy);
   var tdtgdzdate=new TgDzDate(tdyy,tdmm,tddd,tdjd,tdjdve);
   var dailytg=new Array();
   var dailydz=new Array();
   tdtgdzdate.getGZ(tdtgdzdate.getJdays(),tdyy,dailytg,dailydz);
+  var tdty=tdtgdzdate.getTy();
+  var tdninestar=new NineStar(tdty,sex);
+  var tdninestarresult=tdninestar.getResult();
   var dailytengodindex=life.tgCompare(dailytg[2]);
   var dailytengod=life.getTenGodName(dailytengodindex);
   var aboutdailytengod=life.getDailyTenGodExplanation(dailytengodindex);
@@ -913,6 +870,7 @@ function DailyLuck(){
   document.getElementById("tengoddemo").innerHTML=dailytengod;
   document.getElementById("fudemo").innerHTML= aboutdailytengod;
   document.getElementById("clothcolor").innerHTML=DailyLuckColor;
+  document.getElementById("go2").innerHTML =tdninestarresult[0]+"<br>"+tdninestarresult[1];
 }
 
 function testFunction(){
@@ -931,7 +889,7 @@ function testFunction(){
   var odz=new Array();  
   new TgDzDate(oyy,omm,odd,ojd,ojve).getGZ(ojd,oyy,otg,odz);
   //tgFiveFit
-  var k=life.tgCompare(life.getTg()[2],otg[2]);
+  var k=life.tgCompare2(life.getTg()[2],otg[2]);
   var index=Math.floor(k/2);
   var relationship=["對等關係，如朋友般互動","比較照顧對方，為對方著想","對方容易帶來歡樂很搭","對方有點像上司","對方比較照顧你，為你著想"];
   //dzDamage()、dzDisjoint(牛頭不對馬嘴)、dzFit(好溝通)、dzImpulze(彼此有動力，會吵架)
@@ -959,13 +917,9 @@ function testFunction(){
     result[j]+="<br>";
   }
   
- 
   document.getElementById("eachother0").innerHTML = relationship[index];
   document.getElementById("eachother1").innerHTML = result[0] ;
-  document.getElementById("eachother2").innerHTML = result[1]+result[2];
-  //情絲
-
-  
+  document.getElementById("eachother2").innerHTML = result[1]+result[2]; 
 }
 
 function myFunction(){
@@ -973,16 +927,25 @@ function myFunction(){
     var yy= Number(year.value);
     var mm=Number(month.value);
     var dd=Number(day.value);
+    var sex=document.getElementById("sexid").value;
     var test=new PersonBirthday(yy,mm,dd).goToString();
     var jd=new TheDate(yy,mm,dd).getJdays();
     var jdve=new TheDate(yy,mm,dd).getVE(yy);
     var tgdzdate=new TgDzDate(yy,mm,dd,jd,jdve);
-       
+    //
+    
+    
     var persontg=new Array();
     var persondz=new Array();
     tgdzdate.getGZ(tgdzdate.getJdays(),yy,persontg,persondz);
+    
+    var dy=tgdzdate.getTy();
+
+    var ninestar=new NineStar(dy,sex);
+    var ninestarresult=ninestar.getResult();
+    
     life=new LifeEightWord(persontg,persondz);
-    life.init();
+    life.setLifeTenGod();
     var lifetengod=life.getLifeTenGodIndex();
     var lifeinnertengod=life.getLifeInnerTenGodIndex();
 
@@ -990,8 +953,9 @@ function myFunction(){
     var result2="";
     var result3="";
 
-    var sex=document.getElementById("yid").value;
-    // for(var a=0;a<5;a++){for(var i=0;i<5;i++){result2+=(a+i<5)?a+i:(a+i)-5} result2+="<br>";}
+   
+
+    document.getElementById("go").innerHTML =ninestarresult[2]+"<br>"+ninestarresult[3];
     document.getElementById("demo").innerHTML =life.getTgName(persontg[2]);
     document.getElementById("demo2").innerHTML =life.getTgExplanation();
     document.getElementById("demo3").innerHTML =life.getDzName(persondz[1]);
@@ -1001,12 +965,7 @@ function myFunction(){
     document.getElementById("word1").innerHTML =life.getTenGodExplanation(1,lifetengod[0]);
     document.getElementById("word2").innerHTML =life.getTenGodExplanation(2,lifetengod[1]);
     document.getElementById("word3").innerHTML =life.getTenGodExplanation(3,lifeinnertengod[2]);
-    document.getElementById("odemo").innerHTML =life.getTenGodExplanation(1,lifetengod[0]);
-    document.getElementById("odemo1").innerHTML =life.getTenGodExplanation(2,lifetengod[1]);
-    document.getElementById("odemo2").innerHTML =life.getTenGodExplanation(3,lifeinnertengod[2]);
-    document.getElementById("odemo3").innerHTML =life.getTenGodExplanation(3,lifeinnertengod[2]);
     DailyLuck();
-    
     // document.getElementById("word3").innerHTML =life.getLifeInnerTenGodIndex().toString();
   }else{
        alert("時間點不正確，請重新輸入");
@@ -1037,4 +996,219 @@ function ValidDate(){
     }
   }
   return vd;
+}
+
+function NineStar(year,sex){
+  this.year=year;
+  this.sex=sex;
+}
+
+NineStar.prototype.compareSmallBig=function(cc,dd){
+  var uu=new Array(cc,dd);
+  uu.sort(function(a, b){return a-b});
+  return uu;
+}
+//
+NineStar.prototype.lifeArray=function (u){
+  var nomarl=[5,6,7,8,9,1,2,3,4];
+  var lifearray=new Array();
+  for(var i=0;i<9;i++){lifearray[i]=nomarl[i]+u*10;}
+  return lifearray;
+}
+
+NineStar.prototype.compare=function (y){
+  var x=new Array();
+  x=y;
+  var zero=[0,0];
+  var same=[11,22,33,44,66,77,88,99];
+  var alive=[14,28,39,67];
+  var cure=[13,27,49,68];
+  var keeplife=[19,26,34,78]; 
+  var dead=[12,37,48,69];
+  var sixpressure=[16,29,38,47];
+  var fiveghose=[18,24,36,79];
+  var disaster=[17,23,46,89];
+  var data=[same,alive,cure,keeplife,dead,sixpressure,fiveghose,disaster];
+  for(var i=0;i<x.length;i++){
+    var cc=Math.floor(x[i]/10);
+    var dd=x[i]-cc*10;
+    x[i]=this.compareSmallBig(cc,dd)[0]*10+this.compareSmallBig(cc,dd)[1];
+  }
+  
+  var result=new Array();
+  for(var j=0;j<8;j++){
+    for(var i=0;i<data[j].length;i++){
+      for(var k=0;k<x.length;k++){
+        if(data[j][i]==x[k]){
+         result[j]=k;
+        }  
+      }
+    }
+    }   
+  return result;
+}
+
+NineStar.prototype.getPositionName=function (i){
+  var data= ["伏位方","生氣方","天醫方","延年方","絕命方","六煞方","五鬼方","禍害方"];
+  return data[i];
+}
+
+NineStar.prototype.getPositionE=function(i){
+  var data= [
+    "在此方位心情容易平靜無風波，遇不到口舌是非、小人退避，對睡眠不好的人，此方位為主臥最好",
+    "在此方位人比較積極樂觀、旺丁旺財運、官運亨通、富貴榮華、百慶交集，是第一吉方，大門開在這一方則非常吉利，其次房間及灶向在這方位也屬吉",
+    "在此方位可補充人身不足氣場，並且開發智能，增強學習，在風水中被認為是求財及袪病消災的重要方位。適合主臥或書房。",
+    "在此方位可促進人際關係，能多得貴人提拔。這個吉方與感情和婚姻等方面有關係，在風水中被認為是求姻緣時最重要的方位，可當婚後主臥。",
+    "在此方位容易使人情緒憂愁、煩悶，心神不定、容易走極端，人際關係不佳，做事常常不順利，容易被他人不理解，這是最凶的一個方位，因此號稱絕命。<br>開門、立向、作灶朝向或安放床位等都要儘量避免這個方位，否則會對家運產生很大的負面影響。",
+    "在此方位易使人脾氣變的暴躁，不易與他人相處，經常與朋友，甚至親戚等發生爭吵矛盾，婚外情、疾病臨身、做事難成，易招惹官非、凶災等不好的事情",
+    "在此方位會使人做事無精打采，心情煩悶，遇事想不開，常常犯錯，不敢面對現實，容易招惹口舌是非，或有丟失財物的情況",
+    "在此方位具有影響人心緒的力量，容易招惹口舌是非，打官司，被人出賣，毫無上進心，身體不適"
+  ];
+  return data[i];
+}
+
+NineStar.prototype.getPosition=function(u){
+  var a=new Array();
+  a=u;
+  var result=["","","","","","","","","","","","","","","","","",""];
+  var nomarl=[5,6,7,8,9,1,2,3,4];
+  for(var j=0;j<8;j++){
+    for(var i=0;i<9;i++){
+      if(a[j]==i){
+        result[i]=this.getPositionName(j);
+        result[i+9]=(j<4)?1:2;
+      }
+    }
+  }
+  return result;
+}
+  
+NineStar.prototype. getArray=function(i){
+  var array=new Array();
+  for(var j=0;j<9;j++){
+    array[j]=(i+j<10)?i+j:i+j-9;
+  }
+  return array; 
+}
+
+NineStar.prototype.getStar=function (i){
+  var star=["貪狼星","巨門星","祿存星","文曲星","廉貞星","武曲星","破軍星","佐輔星","右弼星"]; 
+  return star[i];
+}
+NineStar.prototype.getStarE=function (i){
+  var about=["桃花星，可在此位催桃花，職場人氣","病符星，請保持空間乾淨明亮，若為臥室建議遷房","是非星，講電話盡可能減少在此方，易有口舌官非，且太歲在此，不宜動土，可在此安置光明燈","文昌星，可作為書房或辦公室，可放文房四寶","五黃關煞，盡量不要在此位動土與放盆栽，若為臥室建議遷房，若為廁所請保持清潔，若為冷氣口在此建議少開","官祿星，除了保持空間明亮乾淨外，可放置羅盤","盜賊星，此位為家中門口，容易被闖空門或詐騙，宜加強居家安全，可在此置靜水(請定時更換)破爛桃花","財福星，可置聚寶盆","喜慶星，可在此位放置玫瑰(單身)或百合(已有對象)兩株一玻璃瓶水栽在此催桃花"];
+  return about[i];
+}
+
+NineStar.prototype.getLifeIndex=function (year,sex){
+  var result=0;
+  var temp=year-1911;
+  var index=this.sumToONES(temp);
+  if(sex==0){
+    result=(8-index>0)?8-index:8-index+9;
+  }else if(sex==1){
+    result=(index-2>0)?index-2:index-2+9;
+  }
+  if(result==5)result=(sex==0)?2:8;
+  return result;
+}
+
+
+NineStar.prototype.getYearIndex=function (year){
+  var result=0;
+  var dy=this.getNumber2(year);
+  if(year<=1999){
+    result=( 10-dy>0  )?10-dy :10-dy+9;
+  }else if(year>=2000){
+    result=( 9-dy>0  )?9-dy :9-dy+9;
+  }
+  return result;
+}
+NineStar.prototype.sumToONES=function (number){
+  var sum=0;
+  var a=Math.floor(Math.log10(number))+1;
+  var array=new Array(a);
+  var temp=number;
+  for(var i=0;i<array.length;i++){
+    array[array.length-i-1]=temp-Math.floor(temp/10)*10;
+    temp=Math.floor(temp/10);
+  }
+  for(var i=0;i<array.length;i++){
+    sum+=array[i];
+  }
+  if(sum>10){
+     return this.sumToONES (sum);
+  }else {return sum;}
+}
+//
+NineStar.prototype.getNumber2=function (cc){
+  //
+  var temp=cc%100;
+  var uu=this.sumToONES(temp);
+  return uu;
+}
+NineStar.prototype. nine=function(data){
+  var color=[["","","","",""],["","","","",""],["","","","",""],["","","","",""],["","","","",""]];
+  var base=[["","","南","",""],["","","","",""],["東","","","","西"],["","","","",""],["","","北","",""]];
+  
+  //九宮格固定排序:
+     base[2][2]=data[0];
+     base[3][3]=data[1];
+     base[2][3]=data[2];
+     base[3][1]=data[3];
+     base[1][2]=data[4];
+     base[3][2]=data[5];
+     base[1][3]=data[6];
+     base[2][1]=data[7];
+     base[1][1]=data[8];
+  if(data.length>9){
+    color[2][2]=data[9];
+    color[3][3]=data[10];
+    color[2][3]=data[11];
+    color[3][1]=data[12];
+    color[1][2]=data[13];
+    color[3][2]=data[14];
+    color[1][3]=data[15];
+    color[2][1]=data[16];
+    color[1][1]=data[17];
+  }
+  var result="";
+  for(var i=0;i<5;i++){
+    result+="<div class=\"css_tr\">";
+    for(var j=0;j<5;j++){
+      result+="<div class=\"css_td"+color[i][j]+" \"  >"+base[i][j]+"</div>";
+    }
+       result+="</div>";
+  }
+  return result;
+}
+
+NineStar.prototype.getResult=function(){
+  var sex=this.sex;
+  var year=this.year;
+  var lifeindex=this.getLifeIndex(year,sex);
+  var lifearray=this.lifeArray(lifeindex);
+  var uu=this.compare(lifearray);
+  var cc=this.getPosition(uu);
+  var result="";
+  var result2="";
+  var result3="";
+  var result4="";
+
+  var dy=this.getNumber2(year);
+  var star=this.getYearIndex(year);
+  var stararray=this.getArray(star);
+  var stararrays=new Array();
+  for(var i=0;i<9;i++){stararrays[i]=this.getStar(stararray[i]-1)}
+  result=this.nine(stararrays);
+  result3=this.nine(cc);
+  for(var i=0;i<9;i++){
+    result2+=this.getStar(i)+":"+this.getStarE(i)+"<br>";
+    if(i<8){
+       result4+=this.getPositionName(i)+":"+this.getPositionE(i)+"<br>";
+    }
+    
+  }
+  var resulttotal=[result,result2,result3,result4];
+  return resulttotal;
 }
